@@ -21,14 +21,14 @@ body {
 }
 
 .container {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+  width: 100%;
 }
 
 .countries {
   /* margin-bottom: 8rem; */
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 
   font-size: 2rem;
   opacity: 0;
