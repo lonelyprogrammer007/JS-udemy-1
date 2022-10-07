@@ -3,6 +3,7 @@
 const API_KEY = "377810902087762628536x44305";
 
 const countriesContainer = document.querySelector('.countries');
+const btnWhereAmI = document.querySelector('.btn-country');
 
 const renderCountry = (data, className = "") => {
     const html = `
@@ -51,8 +52,18 @@ const getCountryData = function (country) {
         });
 };
 
-const whereAmI = (lat, lng) => {
-    getJSON(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=${API_KEY}`)
+const getCurrentPosition = () => {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
+}
+
+const whereAmI = () => {
+    getCurrentPosition()
+        .then(position => {
+            const { latitude: lat, longitude: lng } = position.coords;
+            return getJSON(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=${API_KEY}`)
+        })
         .then((data) => {
             console.log(data)
             console.log(`You are in ${data.city}, ${data.country}`)
@@ -61,6 +72,4 @@ const whereAmI = (lat, lng) => {
         .catch(error => { console.log(`Something went wrong 💥💥 ${error.message}. Try again!`) })
 }
 
-whereAmI(52.508, 13.381)
-whereAmI(19.037, 72.873)
-whereAmI(-33.933, 18.474)
+btnWhereAmI.addEventListener("click", whereAmI)
