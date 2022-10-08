@@ -56,4 +56,21 @@ const loadNPause = async () => {
     }
 }
 
-loadNPause()
+// loadNPause()
+
+const loadAll = async (imgArr) => {
+    try {
+        const promises = imgArr.map(createImage);
+        const data = await Promise.all(promises);
+        data.forEach(img => img.classList.add("parallel"))
+    } catch (error) {
+
+    }
+}
+
+loadAll(
+    [
+        "https://images.freeimages.com/images/previews/d0f/nuclear-power-plant-1314782.jpg",
+        "https://images.freeimages.com/images/previews/e04/yellow-frontal-with-ivy-1228121.jpg",
+        "https://images.freeimages.com/variants/wJdG4pYDgnLaJo9m7wy61VPt/b6679d1569eb20491ea73c07cf4bfc2406d426757005363d05f4184a67cad3c1"]
+)
